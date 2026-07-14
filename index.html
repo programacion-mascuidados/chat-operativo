@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Chat Operativo - Más Cuidados</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="favicon.svg" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef6ff',
+              100: '#d9ebff',
+              200: '#bcd9ff',
+              500: '#2f6fed',
+              600: '#1f5bd6',
+              700: '#1849b0',
+            },
+            surface: {
+              50: '#f7f9fc',
+              100: '#eef2f7',
+              200: '#e2e8f0',
+            },
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'Segoe UI', 'system-ui', 'sans-serif'],
+          },
+          boxShadow: {
+            panel: '0 24px 60px -20px rgba(15, 23, 42, 0.18), 0 8px 24px -12px rgba(15, 23, 42, 0.08)',
+            soft: '0 1px 2px rgba(15, 23, 42, 0.04), 0 8px 20px rgba(15, 23, 42, 0.05)',
+          },
+          screens: {
+            xs: '400px',
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-right: env(safe-area-inset-right, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --safe-left: env(safe-area-inset-left, 0px);
+    }
+
+    html, body {
+      height: 100%;
+      height: 100dvh;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(1200px 600px at 12% -10%, rgba(47, 111, 237, 0.12), transparent 55%),
+        radial-gradient(900px 500px at 90% 0%, rgba(14, 116, 144, 0.10), transparent 50%),
+        linear-gradient(180deg, #e8eef6 0%, #f3f6fa 42%, #edf1f6 100%);
+    }
+
+    @media (min-width: 768px) {
+      body {
+        background-attachment: fixed;
+      }
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.35;
+      background-image:
+        linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: radial-gradient(ellipse at center, black 30%, transparent 78%);
+    }
+
+    @media (max-width: 639px) {
+      body::before {
+        opacity: 0.18;
+      }
+    }
+
+    .app-shell {
+      min-height: 100%;
+      min-height: 100dvh;
+      width: 100%;
+      display: flex;
+      align-items: stretch;
+      justify-content: stretch;
+      padding:
+        max(0px, var(--safe-top))
+        max(0px, var(--safe-right))
+        max(0px, var(--safe-bottom))
+        max(0px, var(--safe-left));
+    }
+
+    .chat-panel {
+      width: 100%;
+      max-width: none;
+      height: 100dvh;
+      max-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: #ffffff;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    #messages {
+      scrollbar-width: thin;
+      scrollbar-color: #c5d0de transparent;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+    }
+
+    #messages::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    #messages::-webkit-scrollbar-thumb {
+      background: #c5d0de;
+      border-radius: 999px;
+      border: 2px solid transparent;
+      background-clip: padding-box;
+    }
+
+    .msg-h1 {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 0.85rem 0 0.4rem;
+      line-height: 1.35;
+    }
+
+    .msg-h2 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin: 0.75rem 0 0.35rem;
+      line-height: 1.35;
+    }
+
+    .msg-h3 {
+      font-size: 0.98rem;
+      font-weight: 650;
+      color: #334155;
+      margin: 0.65rem 0 0.3rem;
+      line-height: 1.4;
+    }
+
+    .msg-hr {
+      border: 0;
+      border-top: 1px solid #e2e8f0;
+      margin: 0.75rem 0;
+    }
+
+    .msg-p {
+      margin: 0 0 0.35rem;
+      line-height: 1.55;
+    }
+
+    .msg-list {
+      margin: 0.35rem 0 0.55rem;
+      padding-left: 1.15rem;
+      list-style: disc;
+    }
+
+    .msg-list li {
+      margin: 0.2rem 0;
+      line-height: 1.5;
+    }
+
+    .typing-dot {
+      animation: typingPulse 1.2s ease-in-out infinite;
+    }
+
+    .typing-dot:nth-child(2) { animation-delay: 0.15s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.3s; }
+
+    @keyframes typingPulse {
+      0%, 80%, 100% { opacity: 0.3; transform: translateY(0); }
+      40% { opacity: 1; transform: translateY(-3px); }
+    }
+
+    .message-enter {
+      animation: messageIn 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    @keyframes messageIn {
+      from { opacity: 0; transform: translateY(10px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .composer:focus-within {
+      border-color: #2f6fed;
+      box-shadow: 0 0 0 4px rgba(47, 111, 237, 0.12);
+    }
+
+    @media (max-width: 639px) {
+      .composer:focus-within {
+        box-shadow: 0 0 0 3px rgba(47, 111, 237, 0.12);
+      }
+    }
+
+    #user-input {
+      font-size: 16px;
+    }
+
+    @media (min-width: 640px) {
+      #user-input {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body class="font-sans text-slate-800 antialiased">
+  <div class="app-shell relative">
+    <div class="chat-panel">
+
+      <!-- Header -->
+      <header class="relative shrink-0 border-b border-slate-200/80 bg-gradient-to-r from-white via-white to-brand-50/40">
+        <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand-600 via-cyan-600 to-brand-500"></div>
+        <div class="flex items-center justify-between gap-2.5 sm:gap-4 px-3.5 xs:px-4 sm:px-6 md:px-7 lg:px-8 pt-3.5 pb-3 sm:py-4 md:py-5">
+          <div class="flex items-center gap-2.5 sm:gap-3.5 md:gap-4 min-w-0">
+            <div class="relative shrink-0">
+              <img
+                src="logo.jpeg"
+                alt="Logo Más Cuidados"
+                width="48"
+                height="48"
+                class="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-xl sm:rounded-2xl object-cover ring-1 ring-slate-200 shadow-soft"
+              />
+              <span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-emerald-500 ring-2 ring-white" title="En línea"></span>
+            </div>
+            <div class="min-w-0">
+              <h1 class="text-[15px] xs:text-base sm:text-lg md:text-xl font-semibold text-slate-900 tracking-tight leading-snug">
+                <span class="sm:hidden">Más Cuidados</span>
+                <span class="hidden sm:inline">Más Cuidados - Asistente Operativo</span>
+              </h1>
+              <p class="text-xs sm:text-sm text-slate-500 mt-0.5 truncate">
+                <span class="sm:hidden">Asistente Operativo</span>
+                <span class="hidden sm:inline">Consultá novedades y datos operativos en tiempo real</span>
+              </p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <div class="hidden md:flex items-center gap-2 rounded-full bg-emerald-50 text-emerald-700 px-3.5 py-1.5 text-xs font-medium border border-emerald-100">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              Asistente activo
+            </div>
+            <button
+              id="clear-chat-btn"
+              type="button"
+              aria-label="Reiniciar chat"
+              title="Reiniciar chat y borrar memoria"
+              class="inline-flex items-center justify-center gap-1.5 h-9 sm:h-10 px-2.5 sm:px-3 rounded-xl border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:text-slate-800 active:bg-slate-100 text-xs sm:text-sm font-medium transition touch-manipulation"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0" aria-hidden="true">
+                <path d="M3 12a9 9 0 1 0 3-6.7" />
+                <path d="M3 4v5h5" />
+              </svg>
+              <span class="hidden xs:inline">Reiniciar chat</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Messages -->
+      <main
+        id="messages"
+        class="flex-1 overflow-y-auto px-3 xs:px-4 sm:px-6 md:px-7 lg:px-10 py-4 sm:py-5 md:py-7 space-y-3.5 sm:space-y-4 md:space-y-5 bg-surface-50"
+        role="log"
+        aria-live="polite"
+        aria-relevant="additions"
+      ></main>
+
+      <!-- Input -->
+      <footer class="shrink-0 border-t border-slate-200/80 bg-white px-3 xs:px-4 sm:px-6 md:px-7 lg:px-8 py-3 sm:py-4 md:py-5 pb-[max(0.75rem,var(--safe-bottom))] sm:pb-4 md:pb-5">
+        <form id="chat-form" class="composer flex items-end gap-2 sm:gap-3 rounded-xl sm:rounded-2xl border border-slate-200 bg-surface-50 px-2.5 sm:px-4 py-2 sm:py-3 transition" autocomplete="off">
+          <label for="user-input" class="sr-only">Escribe tu consulta</label>
+          <textarea
+            id="user-input"
+            name="message"
+            rows="1"
+            placeholder="Escribí tu consulta..."
+            maxlength="2000"
+            enterkeyhint="send"
+            class="flex-1 min-w-0 resize-none bg-transparent px-1 py-2 leading-relaxed text-slate-800 placeholder:text-slate-400 outline-none disabled:opacity-60 disabled:cursor-not-allowed max-h-32 sm:max-h-36"
+          ></textarea>
+          <button
+            id="send-btn"
+            type="submit"
+            aria-label="Enviar mensaje"
+            class="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-600 hover:bg-brand-700 active:bg-brand-700 text-white h-11 w-11 sm:w-auto sm:px-5 text-sm font-semibold transition shadow-soft disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-brand-600 shrink-0 touch-manipulation"
+          >
+            <span class="hidden sm:inline">Enviar</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-[18px] h-[18px]" aria-hidden="true">
+              <path d="M3.4 20.6 21 12 3.4 3.4l.1 6.7L15 12 3.5 13.9l-.1 6.7Z" />
+            </svg>
+          </button>
+        </form>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const WEBHOOK_URL = 'https://automatizaciones-n8n.knr3xy.easypanel.host/webhook/chat-operativo';
+      const SESSION_STORAGE_KEY = 'masCuidadosChatSessionId';
+      const WELCOME_MESSAGE =
+        'Hola. ¿Sobre qué dato o novedad operativa de Más Cuidados necesitas información?';
+      const messagesEl = document.getElementById('messages');
+      const formEl = document.getElementById('chat-form');
+      const inputEl = document.getElementById('user-input');
+      const sendBtn = document.getElementById('send-btn');
+      const clearBtn = document.getElementById('clear-chat-btn');
+
+      function createSessionId() {
+        if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+          return window.crypto.randomUUID();
+        }
+        return 'sess-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 12);
+      }
+
+      function getSessionId() {
+        try {
+          let sessionId = localStorage.getItem(SESSION_STORAGE_KEY);
+          if (!sessionId) {
+            sessionId = createSessionId();
+            localStorage.setItem(SESSION_STORAGE_KEY, sessionId);
+          }
+          return sessionId;
+        } catch (e) {
+          if (!window.__chatSessionId) {
+            window.__chatSessionId = createSessionId();
+          }
+          return window.__chatSessionId;
+        }
+      }
+
+      function resetSessionId() {
+        const sessionId = createSessionId();
+        try {
+          localStorage.setItem(SESSION_STORAGE_KEY, sessionId);
+        } catch (e) {
+          window.__chatSessionId = sessionId;
+        }
+        return sessionId;
+      }
+
+      // Asegura sessionId al cargar la página
+      getSessionId();
+
+      function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+      }
+
+      function formatInlineMarkdown(text) {
+        return text
+          .replace(/\*\*(.+?)\*\*/g, '<strong class="font-semibold">$1</strong>')
+          .replace(/__(.+?)__/g, '<strong class="font-semibold">$1</strong>')
+          .replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g, '$1<em>$2</em>')
+          .replace(/(^|[^_])_([^_\n]+)_(?!_)/g, '$1<em>$2</em>');
+      }
+
+      function formatMessage(text) {
+        const escaped = escapeHtml(String(text || ''));
+        const lines = escaped.split('\n');
+        const parts = [];
+        let listItems = [];
+        let lastWasHr = false;
+
+        function flushList() {
+          if (!listItems.length) return;
+          parts.push(
+            '<ul class="msg-list">' +
+              listItems
+                .map(function (item) {
+                  return '<li>' + formatInlineMarkdown(item) + '</li>';
+                })
+                .join('') +
+              '</ul>'
+          );
+          listItems = [];
+        }
+
+        for (let i = 0; i < lines.length; i++) {
+          const rawLine = lines[i];
+          const line = rawLine.trim();
+
+          // Separadores --- *** ___ → línea sutil (sin mostrar los signos)
+          if (/^(-{3,}|\*{3,}|_{3,})$/.test(line)) {
+            flushList();
+            if (!lastWasHr) {
+              parts.push('<hr class="msg-hr" />');
+              lastWasHr = true;
+            }
+            continue;
+          }
+
+          // Encabezados # ## ### → tipografía limpia, sin #
+          const headingMatch = line.match(/^(#{1,6})\s+(.+)$/);
+          if (headingMatch) {
+            flushList();
+            lastWasHr = false;
+            const level = headingMatch[1].length;
+            const headingClass = level <= 2 ? 'msg-h1' : level === 3 ? 'msg-h2' : 'msg-h3';
+            parts.push(
+              '<p class="' + headingClass + '">' + formatInlineMarkdown(headingMatch[2]) + '</p>'
+            );
+            continue;
+          }
+
+          // Listas: - item | * item | • item
+          const listMatch = line.match(/^[-•*]\s+(.+)$/);
+          if (listMatch) {
+            lastWasHr = false;
+            listItems.push(listMatch[1]);
+            continue;
+          }
+
+          flushList();
+
+          if (line === '') {
+            if (!lastWasHr) {
+              parts.push('<div class="h-2"></div>');
+            }
+            continue;
+          }
+
+          lastWasHr = false;
+          parts.push('<p class="msg-p">' + formatInlineMarkdown(line) + '</p>');
+        }
+
+        flushList();
+        return parts.join('');
+      }
+
+      function scrollToBottom() {
+        requestAnimationFrame(function () {
+          messagesEl.scrollTop = messagesEl.scrollHeight;
+        });
+      }
+
+      function autoResize() {
+        inputEl.style.height = 'auto';
+        const maxHeight = window.matchMedia('(min-width: 640px)').matches ? 144 : 128;
+        inputEl.style.height = Math.min(inputEl.scrollHeight, maxHeight) + 'px';
+      }
+
+      function appendMessage(text, type) {
+        const row = document.createElement('div');
+        row.className =
+          'flex items-end gap-2 sm:gap-2.5 message-enter ' +
+          (type === 'user' ? 'justify-end' : 'justify-start');
+
+        if (type !== 'user') {
+          const avatar = document.createElement('div');
+          avatar.className =
+            'shrink-0 w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl overflow-hidden ring-1 ring-slate-200 bg-white shadow-soft mb-0.5';
+          avatar.innerHTML =
+            '<img src="logo.jpeg" alt="" width="32" height="32" class="w-full h-full object-cover" />';
+          row.appendChild(avatar);
+        }
+
+        const bubbleWrap = document.createElement('div');
+        bubbleWrap.className =
+          (type === 'user'
+            ? 'max-w-[min(100%,28rem)] sm:max-w-[60%] md:max-w-[50%] '
+            : 'max-w-[min(100%,48rem)] sm:max-w-[92%] md:max-w-[85%] lg:max-w-[78%] ') +
+          'flex flex-col ' +
+          (type === 'user' ? 'items-end' : 'items-start');
+
+        if (type !== 'user') {
+          const label = document.createElement('span');
+          label.className = 'text-[11px] font-medium text-slate-400 mb-1 sm:mb-1.5 ml-0.5 sm:ml-1';
+          label.textContent = type === 'error' ? 'Sistema' : 'Asistente Operativo';
+          bubbleWrap.appendChild(label);
+        }
+
+        const bubble = document.createElement('div');
+        bubble.className =
+          'rounded-2xl sm:rounded-[1.25rem] px-3.5 py-2.5 sm:px-4 sm:py-3 text-sm sm:text-[15px] leading-relaxed shadow-soft break-words ' +
+          (type === 'user'
+            ? 'bg-brand-600 text-white rounded-br-md'
+            : type === 'error'
+              ? 'bg-red-50 text-red-800 border border-red-100 rounded-bl-md'
+              : 'bg-white text-slate-700 border border-slate-200/80 rounded-bl-md');
+
+        bubble.innerHTML = formatMessage(text);
+        bubbleWrap.appendChild(bubble);
+        row.appendChild(bubbleWrap);
+        messagesEl.appendChild(row);
+        scrollToBottom();
+        return row;
+      }
+
+      function clearChat() {
+        hideTypingIndicator();
+        messagesEl.innerHTML = '';
+        inputEl.value = '';
+        autoResize();
+        setLoading(false);
+        resetSessionId();
+        appendMessage(WELCOME_MESSAGE, 'bot');
+        inputEl.focus();
+      }
+
+      function showTypingIndicator() {
+        const row = document.createElement('div');
+        row.id = 'typing-indicator';
+        row.className = 'flex items-end gap-2 sm:gap-2.5 justify-start message-enter';
+        row.setAttribute('aria-label', 'Escribiendo');
+
+        row.innerHTML =
+          '<div class="shrink-0 w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl overflow-hidden ring-1 ring-slate-200 bg-white shadow-soft mb-0.5">' +
+          '<img src="logo.jpeg" alt="" width="32" height="32" class="w-full h-full object-cover" />' +
+          '</div>' +
+          '<div class="inline-flex items-center gap-2 sm:gap-2.5 rounded-2xl sm:rounded-[1.25rem] rounded-bl-md bg-white text-slate-500 border border-slate-200/80 px-3.5 py-2.5 sm:px-4 sm:py-3 text-sm shadow-soft">' +
+          '<span class="font-medium">Escribiendo</span>' +
+          '<span class="inline-flex gap-1 items-center" aria-hidden="true">' +
+          '<span class="typing-dot w-1.5 h-1.5 rounded-full bg-slate-400"></span>' +
+          '<span class="typing-dot w-1.5 h-1.5 rounded-full bg-slate-400"></span>' +
+          '<span class="typing-dot w-1.5 h-1.5 rounded-full bg-slate-400"></span>' +
+          '</span></div>';
+
+        messagesEl.appendChild(row);
+        scrollToBottom();
+      }
+
+      function hideTypingIndicator() {
+        const el = document.getElementById('typing-indicator');
+        if (el) el.remove();
+      }
+
+      function setLoading(isLoading) {
+        inputEl.disabled = isLoading;
+        sendBtn.disabled = isLoading;
+        clearBtn.disabled = isLoading;
+        if (!isLoading) {
+          inputEl.focus();
+          autoResize();
+        }
+      }
+
+      function extractOutput(data) {
+        if (data == null) return null;
+
+        if (typeof data === 'string') {
+          const trimmed = data.trim();
+          if (!trimmed) return null;
+          try {
+            return extractOutput(JSON.parse(trimmed));
+          } catch (e) {
+            return trimmed;
+          }
+        }
+
+        if (Array.isArray(data)) {
+          for (let i = 0; i < data.length; i++) {
+            const found = extractOutput(data[i]);
+            if (found) return found;
+          }
+          return null;
+        }
+
+        if (typeof data === 'object') {
+          const keys = ['output', 'text', 'message', 'response', 'answer', 'reply'];
+          for (let i = 0; i < keys.length; i++) {
+            const value = data[keys[i]];
+            if (typeof value === 'string' && value.trim()) return value.trim();
+            if (value != null && typeof value !== 'object') return String(value);
+          }
+
+          if (data.data != null) return extractOutput(data.data);
+          if (data.json != null) return extractOutput(data.json);
+        }
+
+        return null;
+      }
+
+      async function sendMessage(text) {
+        const message = text.trim();
+        if (!message) return;
+
+        appendMessage(message, 'user');
+        inputEl.value = '';
+        autoResize();
+        setLoading(true);
+        showTypingIndicator();
+
+        try {
+          const response = await fetch(WEBHOOK_URL, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+            },
+            body: JSON.stringify({
+              chatInput: message,
+              sessionId: getSessionId(),
+            }),
+          });
+
+          const rawText = await response.text();
+
+          if (!response.ok) {
+            throw new Error('HTTP ' + response.status);
+          }
+
+          hideTypingIndicator();
+
+          if (!rawText || !rawText.trim()) {
+            appendMessage(
+              'El servidor respondió sin contenido. Revisá en n8n el nodo "Respond to Webhook" para que devuelva JSON con la propiedad "output".',
+              'error'
+            );
+            return;
+          }
+
+          let data;
+          try {
+            data = JSON.parse(rawText);
+          } catch (parseError) {
+            appendMessage(rawText.trim(), 'bot');
+            return;
+          }
+
+          const output = extractOutput(data);
+
+          if (!output) {
+            appendMessage(
+              'No se recibió una respuesta válida del asistente. El webhook debe devolver { "output": "texto" }.',
+              'error'
+            );
+          } else {
+            appendMessage(output, 'bot');
+          }
+        } catch (err) {
+          hideTypingIndicator();
+          appendMessage(
+            'Hubo un error de conexión. Por favor, verificá tu red e intentá de nuevo en unos segundos.',
+            'error'
+          );
+          console.error('Chat webhook error:', err);
+        } finally {
+          setLoading(false);
+        }
+      }
+
+      formEl.addEventListener('submit', function (event) {
+        event.preventDefault();
+        sendMessage(inputEl.value);
+      });
+
+      clearBtn.addEventListener('click', clearChat);
+
+      inputEl.addEventListener('input', autoResize);
+
+      inputEl.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter' && !event.shiftKey) {
+          event.preventDefault();
+          if (!sendBtn.disabled) {
+            sendMessage(inputEl.value);
+          }
+        }
+      });
+
+      window.addEventListener('resize', function () {
+        autoResize();
+        scrollToBottom();
+      });
+
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', scrollToBottom);
+      }
+
+      appendMessage(WELCOME_MESSAGE, 'bot');
+      inputEl.focus();
+    })();
+  </script>
+</body>
+</html>
