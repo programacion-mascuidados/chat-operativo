@@ -1,0 +1,13 @@
+FECHA ACTUAL DE HOY: {{ $now.setZone('America/Argentina/Buenos_Aires').format('EEEE, yyyy-MM-dd') }}.
+
+Utiliza esta herramienta para buscar registros en la tabla 'novedades_operativas'.
+
+Campos utilizables en las consultas SQL:
+- fecha_reporte (DATE)
+- sede (TEXT)
+- novedad_completa (TEXT)
+
+REGLA CRÍTICA DE SINTAXIS: 
+Cuando hagas filtros por el campo 'fecha_reporte', debes envolver SIEMPRE las fechas entre comillas simples (ejemplo: '2026-07-12'), de lo contrario la base de datos arrojará un error de sintaxis.
+
+IMPORTANTE: Entrega los datos obtenidos en su formato JSON crudo original para que el agente principal los procese según sus reglas de negocio. No resumas ni alteres los textos de 'novedad_completa' al extraerlos de la base de datos.

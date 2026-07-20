@@ -181,6 +181,302 @@
       line-height: 1.5;
     }
 
+    .bot-bubble.report-bubble {
+      max-width: 100%;
+      background: linear-gradient(180deg, #fafbfd 0%, #ffffff 100%);
+      border: 1px solid #dbe4ef;
+      box-shadow: 0 12px 40px rgba(15, 23, 42, 0.08);
+      padding: 1rem 1.1rem;
+    }
+
+    @media (min-width: 768px) {
+      .bot-bubble.report-bubble {
+        padding: 1.25rem 1.5rem;
+      }
+    }
+
+    .msg-report-header {
+      text-align: center;
+      padding: 1rem 0.75rem 1.1rem;
+      margin: 0 0 1rem;
+      border-radius: 1rem;
+      background: linear-gradient(135deg, #eef4ff 0%, #f8fafc 55%, #ecfdf5 100%);
+      border: 1px solid #dbeafe;
+    }
+
+    .msg-report-header .msg-h1 {
+      margin: 0;
+      font-size: 1.15rem;
+      letter-spacing: -0.02em;
+      color: #0f172a;
+    }
+
+    .msg-report-header .msg-h2 {
+      margin: 0.35rem 0 0;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #475569;
+    }
+
+    .msg-report-period {
+      display: inline-block;
+      margin-top: 0.65rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #334155;
+      letter-spacing: 0.02em;
+    }
+
+    .msg-section-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 1.25rem 0 0.5rem;
+      padding: 0.45rem 0.65rem;
+      border-radius: 0.65rem;
+      background: #f1f5f9;
+      border-left: 4px solid #2f6fed;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #1e293b;
+    }
+
+    .msg-section-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 0.4rem;
+      background: #2f6fed;
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    .msg-table-wrap {
+      overflow-x: auto;
+      margin: 0.65rem 0 1rem;
+      border-radius: 0.85rem;
+      border: 1px solid #e2e8f0;
+      background: #fff;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .msg-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      min-width: 280px;
+    }
+
+    .msg-table th {
+      background: linear-gradient(180deg, #f8fafc, #f1f5f9);
+      color: #334155;
+      font-weight: 700;
+      text-align: left;
+      padding: 0.65rem 0.75rem;
+      border-bottom: 2px solid #e2e8f0;
+      white-space: nowrap;
+    }
+
+    .msg-table td {
+      padding: 0.6rem 0.75rem;
+      border-bottom: 1px solid #f1f5f9;
+      color: #475569;
+      vertical-align: top;
+    }
+
+    .msg-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .msg-table tbody tr:hover td {
+      background: #f8fafc;
+    }
+
+    .msg-table td:last-child:not(:only-child) {
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    .msg-status-green,
+    .msg-status-yellow,
+    .msg-status-red {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.78rem;
+      white-space: nowrap;
+    }
+
+    .msg-status-green {
+      background: #ecfdf5;
+      color: #047857;
+    }
+
+    .msg-status-yellow {
+      background: #fffbeb;
+      color: #b45309;
+    }
+
+    .msg-status-red {
+      background: #fef2f2;
+      color: #b91c1c;
+    }
+
+    .msg-conclusion-ok {
+      display: flex;
+      gap: 0.5rem;
+      align-items: flex-start;
+      padding: 0.5rem 0.65rem;
+      margin: 0.35rem 0;
+      border-radius: 0.65rem;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: #166534;
+      font-size: 0.88rem;
+      line-height: 1.45;
+    }
+
+    .msg-footnote {
+      margin-top: 0.75rem;
+      padding: 0.55rem 0.7rem;
+      border-radius: 0.65rem;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      color: #92400e;
+      font-size: 0.8rem;
+      line-height: 1.45;
+    }
+
+    .msg-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 0.35rem;
+      width: 100%;
+    }
+
+    .msg-download-pdf {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.28rem 0.6rem;
+      border-radius: 0.55rem;
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      color: #475569;
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    }
+
+    .msg-download-pdf:hover:not(:disabled) {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      color: #1e293b;
+    }
+
+    .msg-download-pdf:disabled {
+      opacity: 0.65;
+      cursor: wait;
+    }
+
+    .msg-download-pdf svg {
+      width: 0.9rem;
+      height: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .pdf-export-root {
+      position: static;
+      width: 100%;
+      max-width: 100%;
+      margin: 0;
+      background: #ffffff;
+      color: #0f172a;
+      font-family: "Plus Jakarta Sans", "Segoe UI", system-ui, sans-serif;
+      font-size: 13px;
+      line-height: 1.5;
+      opacity: 1;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .pdf-export-root,
+    .pdf-export-root * {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      box-sizing: border-box;
+    }
+
+    .pdf-export-header {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 1rem 1.25rem;
+      border-bottom: 3px solid #2f6fed;
+      background: linear-gradient(135deg, #eef4ff 0%, #f8fafc 100%);
+    }
+
+    .pdf-export-header img {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .pdf-export-header-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 0;
+    }
+
+    .pdf-export-header-meta {
+      font-size: 0.75rem;
+      color: #64748b;
+      margin: 0.15rem 0 0;
+    }
+
+    .pdf-export-body {
+      padding: 1rem 1.25rem 1.25rem;
+      background: #f7f9fc;
+    }
+
+    .pdf-export-body .pdf-export-bubble {
+      max-width: 100% !important;
+      width: 100%;
+      margin: 0;
+      box-shadow: none !important;
+    }
+
+    .pdf-export-body .pdf-export-bubble.report-bubble {
+      background: linear-gradient(180deg, #fafbfd 0%, #ffffff 100%) !important;
+      border: 1px solid #dbe4ef !important;
+    }
+
+    .pdf-export-body .pdf-export-bubble:not(.report-bubble) {
+      background: #ffffff !important;
+      border: 1px solid #e2e8f0 !important;
+    }
+
+    .pdf-export-footer {
+      padding: 0.65rem 1.25rem 1rem;
+      border-top: 1px solid #e2e8f0;
+      font-size: 0.68rem;
+      color: #94a3b8;
+      text-align: center;
+    }
+
     .typing-dot {
       animation: typingPulse 1.2s ease-in-out infinite;
     }
@@ -1145,6 +1441,9 @@
   </div>
 
   <script>
+    window.addEventListener('error', function (e) {
+      window.__lastError = (e && e.error && e.error.stack) || (e && e.message) || String(e);
+    });
     (function () {
       // Credenciales de acceso (compartidas para el equipo).
       // Usuario: mascuidados | Contraseña: Ctrl-Dds_2026
@@ -1410,15 +1709,377 @@
           .replace(/(^|[^_])_([^_\n]+)_(?!_)/g, '$1<em>$2</em>');
       }
 
+      function isReportDocument(text) {
+        return /INFORME MENSUAL|TABLERO EJECUTIVO/i.test(String(text || ''));
+      }
+
+      function sanitizeFilenamePart(value) {
+        return String(value || '')
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .replace(/[^a-zA-Z0-9]+/g, '-')
+          .replace(/^-+|-+$/g, '')
+          .toLowerCase()
+          .slice(0, 60);
+      }
+
+      function getPdfFilename(rawText) {
+        const text = String(rawText || '');
+        const periodMatch = text.match(/Per[ií]odo:\s*([^\n]+)/i);
+        const topicMatch = text.match(
+          /(?:Auditor[ií]as[^\n]+|Supervisiones[^\n]+|Bajas[^\n]+|Nuevos socios[^\n]+)/i
+        );
+        const parts = ['mas-cuidados'];
+
+        if (topicMatch) {
+          parts.push(sanitizeFilenamePart(topicMatch[0]));
+        }
+        if (periodMatch) {
+          parts.push(sanitizeFilenamePart(periodMatch[1]));
+        }
+        if (parts.length === 1) {
+          parts.push(new Date().toISOString().slice(0, 10));
+        }
+
+        return parts.join('-') + '.pdf';
+      }
+
+      function formatPdfDate() {
+        return new Date().toLocaleString('es-AR', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+        });
+      }
+
+      function buildPdfExportNode(bubble, rawText) {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'pdf-export-root';
+        wrapper.setAttribute('aria-hidden', 'true');
+
+        const bubbleClone = document.createElement('div');
+        bubbleClone.className =
+          'bot-bubble report-bubble text-slate-700 pdf-export-bubble rounded-2xl';
+        bubbleClone.innerHTML = formatMessage(rawText);
+        wrapper.appendChild(bubbleClone);
+
+        return wrapper;
+      }
+
+      function getPdfDocumentStyles() {
+        return [
+          '*,*::before,*::after{box-sizing:border-box}',
+          'html,body{margin:0;padding:0;background:#fff;color:#0f172a;font-family:"Plus Jakarta Sans",Segoe UI,system-ui,sans-serif;font-size:12.5px;line-height:1.5;-webkit-print-color-adjust:exact;print-color-adjust:exact}',
+          '.pdf-screen-hint{position:sticky;top:0;z-index:10;padding:.75rem 1rem;background:#1f5bd6;color:#fff;font-size:.85rem;font-weight:600;text-align:center}',
+          '.pdf-screen-hint strong{font-weight:700}',
+          '.pdf-export-root{position:static;width:100%;max-width:190mm;margin:0 auto;background:#fff;color:#0f172a;opacity:1;padding:0}',
+          '.pdf-export-bubble,.bot-bubble{max-width:100%;width:100%;box-shadow:none!important;color:#0f172a;overflow:visible}',
+          '.pdf-export-bubble.report-bubble,.bot-bubble.report-bubble{background:linear-gradient(180deg,#fafbfd 0%,#fff 100%)!important;border:1px solid #dbe4ef!important;padding:1rem 1.1rem;border-radius:1rem}',
+          '.msg-h1{font-size:1.1rem;font-weight:700;margin:.85rem 0 .4rem;color:#0f172a;word-wrap:break-word}',
+          '.msg-h2{font-size:1rem;font-weight:700;margin:.75rem 0 .35rem;color:#0f172a;word-wrap:break-word}',
+          '.msg-h3{font-size:.95rem;font-weight:650;margin:.65rem 0 .3rem;color:#0f172a}',
+          '.msg-p{margin:0 0 .4rem;line-height:1.55;color:#334155;word-wrap:break-word;overflow-wrap:anywhere}',
+          '.msg-footnote{font-size:.78rem;color:#64748b;margin:.5rem 0}',
+          '.msg-hr{border:none;border-top:1px solid #e2e8f0;margin:1rem 0}',
+          '.msg-report-header{text-align:center;padding:1rem .75rem;margin:0 0 1rem;border-radius:1rem;background:linear-gradient(135deg,#eef4ff 0%,#f8fafc 55%,#ecfdf5 100%);border:1px solid #dbeafe}',
+          '.msg-report-period{display:inline-block;margin-top:.65rem;padding:.3rem .75rem;border-radius:999px;background:#fff;border:1px solid #cbd5e1;font-size:.78rem;font-weight:600}',
+          '.msg-section-title{display:flex;align-items:center;gap:.5rem;margin:1.1rem 0 .5rem;padding:.45rem .65rem;border-radius:.65rem;background:#f1f5f9;border-left:4px solid #2f6fed;font-weight:700;color:#0f172a;page-break-after:avoid}',
+          '.msg-section-num{display:inline-flex;align-items:center;justify-content:center;min-width:1.5rem;height:1.5rem;border-radius:.4rem;background:#2f6fed;color:#fff;font-size:.72rem;font-weight:700;flex-shrink:0}',
+          '.msg-table-wrap{overflow:visible;margin:.65rem 0 1rem;border-radius:.85rem;border:1px solid #e2e8f0;background:#fff;page-break-inside:auto}',
+          '.msg-table{width:100%;border-collapse:collapse;font-size:.78rem;table-layout:fixed}',
+          '.msg-table th,.msg-table td{word-wrap:break-word;overflow-wrap:anywhere;vertical-align:top}',
+          '.msg-table th{background:#f1f5f9;font-weight:700;text-align:left;padding:.55rem .6rem;border-bottom:2px solid #e2e8f0;color:#0f172a}',
+          '.msg-table td{padding:.5rem .6rem;border-bottom:1px solid #f1f5f9;color:#334155}',
+          '.msg-table tr{page-break-inside:avoid}',
+          '.msg-status-green,.msg-status-yellow,.msg-status-red{display:inline-flex;padding:.2rem .55rem;border-radius:999px;font-weight:700;font-size:.75rem}',
+          '.msg-status-green{background:#ecfdf5;color:#047857}',
+          '.msg-status-yellow{background:#fffbeb;color:#b45309}',
+          '.msg-status-red{background:#fef2f2;color:#b91c1c}',
+          '.msg-conclusion-ok{padding:.5rem .65rem;margin:.35rem 0;border-radius:.65rem;background:#f0fdf4;border:1px solid #bbf7d0;color:#166534;page-break-inside:avoid}',
+          '.msg-list{margin:.35rem 0 .55rem;padding-left:1.15rem;color:#334155}',
+          'strong,b{font-weight:700;color:#0f172a}',
+          '@page{size:A4;margin:12mm}',
+          '@media print{.pdf-screen-hint{display:none!important}html,body{width:100%;background:#fff}.pdf-export-root{width:100%!important;max-width:100%!important;margin:0!important}}',
+        ].join('');
+      }
+
+      function waitForPdfAssets(rootNode, doc) {
+        var scope = doc || document;
+        var images = Array.prototype.slice.call(rootNode.querySelectorAll('img'));
+        var pending = images.map(function (img) {
+          if (img.complete && img.naturalWidth > 0) {
+            return Promise.resolve();
+          }
+          return new Promise(function (resolve) {
+            var done = function () {
+              resolve();
+            };
+            img.addEventListener('load', done, { once: true });
+            img.addEventListener('error', done, { once: true });
+            setTimeout(done, 2000);
+          });
+        });
+
+        if (scope.fonts && scope.fonts.ready) {
+          pending.push(scope.fonts.ready.catch(function () {}));
+        }
+
+        return Promise.all(pending).then(function () {
+          return new Promise(function (resolve) {
+            setTimeout(resolve, 250);
+          });
+        });
+      }
+
+      function buildPdfPrintHtml(exportNode, filename) {
+        return (
+          '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">' +
+          '<meta name="viewport" content="width=device-width, initial-scale=1" />' +
+          '<title>' +
+          escapeHtml(filename.replace(/\.pdf$/i, '')) +
+          '</title>' +
+          '<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />' +
+          '<style>' +
+          getPdfDocumentStyles() +
+          '</style></head><body>' +
+          '<div class="pdf-screen-hint">En el diálogo de impresión elegí <strong>Guardar como PDF</strong> (o Microsoft Print to PDF) y luego <strong>Guardar</strong>.</div>' +
+          exportNode.outerHTML +
+          '</body></html>'
+        );
+      }
+
+      function printViaHiddenIframe(exportNode, filename) {
+        return new Promise(function (resolve, reject) {
+          var iframe = document.createElement('iframe');
+          iframe.setAttribute('title', 'Impresión PDF');
+          iframe.style.cssText =
+            'position:fixed;right:0;bottom:0;width:0;height:0;border:0;visibility:hidden';
+          document.body.appendChild(iframe);
+
+          var doc = iframe.contentDocument || iframe.contentWindow.document;
+          doc.open();
+          doc.write(buildPdfPrintHtml(exportNode, filename));
+          doc.close();
+
+          var root = doc.querySelector('.pdf-export-root');
+          waitForPdfAssets(root || doc.body, doc)
+            .then(function () {
+              try {
+                iframe.contentWindow.focus();
+                iframe.contentWindow.print();
+                resolve(true);
+              } catch (err) {
+                reject(err);
+              } finally {
+                setTimeout(function () {
+                  iframe.remove();
+                }, 4000);
+              }
+            })
+            .catch(reject);
+        });
+      }
+
+      function openPrintPdfWindow(exportNode, filename) {
+        var printWindow = window.open('', '_blank');
+        if (!printWindow) {
+          return printViaHiddenIframe(exportNode, filename);
+        }
+
+        printWindow.document.open();
+        printWindow.document.write(buildPdfPrintHtml(exportNode, filename));
+        printWindow.document.close();
+
+        var root = printWindow.document.querySelector('.pdf-export-root');
+        return waitForPdfAssets(root || printWindow.document.body, printWindow.document).then(
+          function () {
+            try {
+              printWindow.focus();
+              printWindow.print();
+              return true;
+            } catch (err) {
+              printWindow.close();
+              return printViaHiddenIframe(exportNode, filename);
+            }
+          }
+        );
+      }
+
+      function downloadMessageAsPdf(button, bubble, rawText) {
+        const originalLabel = button.innerHTML;
+        button.disabled = true;
+        button.innerHTML =
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v4"/><path d="m16.2 7.8 2.9-2.9"/><path d="M18 12h4"/><path d="m16.2 16.2 2.9 2.9"/><path d="M12 18v4"/><path d="m4.9 19.1 2.9-2.9"/><path d="M2 12h4"/><path d="m4.9 4.9 2.9 2.9"/></svg> Preparando…';
+
+        const exportNode = buildPdfExportNode(bubble, rawText);
+        const filename = getPdfFilename(rawText);
+
+        Promise.resolve()
+          .then(function () {
+            return openPrintPdfWindow(exportNode, filename);
+          })
+          .catch(function () {
+            window.alert(
+              'No se pudo abrir la impresión. Permití ventanas emergentes para este sitio y volvé a tocar PDF.'
+            );
+          })
+          .finally(function () {
+            button.disabled = false;
+            button.innerHTML = originalLabel;
+          });
+      }
+
+      function createPdfDownloadButton(bubble, rawText) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'msg-download-pdf touch-manipulation';
+        button.setAttribute('aria-label', 'Guardar respuesta como PDF');
+        button.title = 'Guardar como PDF';
+        button.innerHTML =
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+          '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />' +
+          '<polyline points="14 2 14 8 20 8" />' +
+          '<line x1="12" y1="18" x2="12" y2="12" />' +
+          '<polyline points="9 15 12 18 15 15" />' +
+          '</svg>' +
+          '<span>PDF</span>';
+
+        button.addEventListener('click', function () {
+          downloadMessageAsPdf(button, bubble, rawText);
+        });
+
+        return button;
+      }
+
+      function normalizeTableHeader(cell) {
+        const value = String(cell || '').trim();
+        if (/^responsable$/i.test(value)) {
+          return 'Beneficiario';
+        }
+        return value;
+      }
+
+      function isTabTableRow(rawLine) {
+        if (!rawLine || rawLine.indexOf('\t') === -1) {
+          return false;
+        }
+        const cells = rawLine.split('\t').map(function (cell) {
+          return cell.trim();
+        }).filter(Boolean);
+        return cells.length >= 2;
+      }
+
+      function parseTabTableRow(rawLine) {
+        return rawLine
+          .split('\t')
+          .map(function (cell) {
+            return normalizeTableHeader(cell.trim());
+          })
+          .filter(function (cell) {
+            return cell !== '';
+          });
+      }
+
+      function isTableRow(line) {
+        return /^\|.+\|$/.test(String(line || '').trim());
+      }
+
+      function isTableSeparator(line) {
+        return /^\|[\s\-:|]+\|$/.test(String(line || '').trim());
+      }
+
+      function parseTableRow(line) {
+        return line
+          .trim()
+          .replace(/^\|/, '')
+          .replace(/\|$/, '')
+          .split('|')
+          .map(function (cell) {
+            return normalizeTableHeader(cell.trim());
+          });
+      }
+
+      function formatStatusCell(text) {
+        const value = String(text || '').trim();
+        if (/🟢/.test(value)) {
+          return '<span class="msg-status-green">' + value + '</span>';
+        }
+        if (/🟡/.test(value)) {
+          return '<span class="msg-status-yellow">' + value + '</span>';
+        }
+        if (/🔴/.test(value)) {
+          return '<span class="msg-status-red">' + value + '</span>';
+        }
+        return formatInlineMarkdown(value);
+      }
+
+      function renderTable(rows) {
+        if (!rows.length) {
+          return '';
+        }
+
+        const header = rows[0];
+        const body = rows.slice(1);
+        const statusColIndex = header.findIndex(function (cell) {
+          return /estado|sem[aá]foro/i.test(cell);
+        });
+
+        let html =
+          '<div class="msg-table-wrap"><table class="msg-table"><thead><tr>' +
+          header
+            .map(function (cell) {
+              return '<th>' + formatInlineMarkdown(cell) + '</th>';
+            })
+            .join('') +
+          '</tr></thead><tbody>';
+
+        body.forEach(function (row) {
+          html +=
+            '<tr>' +
+            row
+              .map(function (cell, idx) {
+                const content =
+                  statusColIndex >= 0 && idx === statusColIndex
+                    ? formatStatusCell(cell)
+                    : formatInlineMarkdown(cell);
+                return '<td>' + content + '</td>';
+              })
+              .join('') +
+            '</tr>';
+        });
+
+        html += '</tbody></table></div>';
+        return html;
+      }
+
+      function closeReportHeader(parts, state) {
+        if (!state.inReportHeader) {
+          return;
+        }
+        parts.push('</div>');
+        state.inReportHeader = false;
+        state.headerSubtitlePending = false;
+      }
+
       function formatMessage(text) {
         const escaped = escapeHtml(String(text || ''));
         const lines = escaped.split('\n');
         const parts = [];
+        const state = {
+          inReportHeader: false,
+          headerSubtitlePending: false,
+        };
         let listItems = [];
+        let tableBuffer = [];
+        let tabTableBuffer = [];
         let lastWasHr = false;
 
         function flushList() {
-          if (!listItems.length) return;
+          if (!listItems.length) {
+            return;
+          }
           parts.push(
             '<ul class="msg-list">' +
               listItems
@@ -1431,16 +2092,152 @@
           listItems = [];
         }
 
+      function appendRowToLastTable(parts, row, statusColIndex) {
+        if (!parts.length || !row.length) {
+          return false;
+        }
+
+        const lastIdx = parts.length - 1;
+        const lastPart = parts[lastIdx];
+        if (!lastPart || lastPart.indexOf('msg-table-wrap') === -1) {
+          return false;
+        }
+
+        const cells = row
+          .map(function (cell, idx) {
+            const content =
+              statusColIndex >= 0 && idx === statusColIndex
+                ? formatStatusCell(cell)
+                : formatInlineMarkdown(cell);
+            return '<td>' + content + '</td>';
+          })
+          .join('');
+
+        parts[lastIdx] = lastPart.replace(
+          '</tbody></table></div>',
+          '<tr>' + cells + '</tr></tbody></table></div>'
+        );
+        return true;
+      }
+
+      function flushTable() {
+        if (!tableBuffer.length) {
+          return;
+        }
+
+        if (tableBuffer.length < 1) {
+          tableBuffer = [];
+          return;
+        }
+
+        const rows = [];
+        tableBuffer.forEach(function (line) {
+          if (isTableSeparator(line)) {
+            return;
+          }
+          rows.push(parseTableRow(line));
+        });
+
+        if (rows.length >= 1) {
+          if (rows.length === 1 && rows[0].length >= 2) {
+            const statusColIndex = rows[0].findIndex(function (cell, idx) {
+              return idx === rows[0].length - 1 && /🟢|🟡|🔴/.test(cell);
+            });
+            if (appendRowToLastTable(parts, rows[0], statusColIndex)) {
+              tableBuffer = [];
+              return;
+            }
+          }
+          parts.push(renderTable(rows));
+        } else {
+          tableBuffer.forEach(function (line) {
+            parts.push('<p class="msg-p">' + formatInlineMarkdown(line.trim()) + '</p>');
+          });
+        }
+
+        tableBuffer = [];
+      }
+
+        function flushTabTable() {
+          if (!tabTableBuffer.length) {
+            return;
+          }
+
+          const rows = tabTableBuffer.map(parseTabTableRow).filter(function (row) {
+            return row.length >= 2;
+          });
+
+          if (rows.length >= 1) {
+            parts.push(renderTable(rows));
+          } else {
+            tabTableBuffer.forEach(function (raw) {
+              parts.push('<p class="msg-p">' + formatInlineMarkdown(raw.trim()) + '</p>');
+            });
+          }
+
+          tabTableBuffer = [];
+        }
+
+        function flushAllTables() {
+          flushTabTable();
+          flushTable();
+        }
+
         for (let i = 0; i < lines.length; i++) {
           const rawLine = lines[i];
           const line = rawLine.trim();
 
+          if (isTabTableRow(rawLine)) {
+            flushList();
+            lastWasHr = false;
+            tabTableBuffer.push(rawLine);
+            continue;
+          }
+
+          if (tabTableBuffer.length && line === '') {
+            continue;
+          }
+
+          flushTabTable();
+
+          if (isTableRow(line)) {
+            flushList();
+            lastWasHr = false;
+            tableBuffer.push(line);
+            continue;
+          }
+
+          if (tableBuffer.length && line === '') {
+            continue;
+          }
+
+          flushTable();
+
           if (/^(-{3,}|\*{3,}|_{3,})$/.test(line)) {
             flushList();
+            closeReportHeader(parts, state);
             if (!lastWasHr) {
               parts.push('<hr class="msg-hr" />');
               lastWasHr = true;
             }
+            continue;
+          }
+
+          const sectionMatch = line.match(/^(\d+)\.\s+(.+)$/);
+          if (sectionMatch && /^[A-ZÁÉÍÓÚÑ\s\/\-–—]+$/i.test(sectionMatch[2].trim())) {
+            flushList();
+            closeReportHeader(parts, state);
+            lastWasHr = false;
+            parts.push(
+              '<div class="msg-section-title">' +
+                '<span class="msg-section-num">' +
+                sectionMatch[1] +
+                '</span>' +
+                '<span>' +
+                formatInlineMarkdown(sectionMatch[2].trim()) +
+                '</span>' +
+              '</div>'
+            );
             continue;
           }
 
@@ -1449,14 +2246,71 @@
             flushList();
             lastWasHr = false;
             const level = headingMatch[1].length;
-            const headingClass = level <= 2 ? 'msg-h1' : level === 3 ? 'msg-h2' : 'msg-h3';
+            const content = formatInlineMarkdown(headingMatch[2]);
+            const headingClass = level <= 1 ? 'msg-h1' : level === 2 ? 'msg-h2' : 'msg-h3';
+
+            if (/INFORME MENSUAL/i.test(headingMatch[2])) {
+              if (!state.inReportHeader) {
+                parts.push('<div class="msg-report-header">');
+                state.inReportHeader = true;
+                state.headerSubtitlePending = true;
+              }
+            } else if (state.inReportHeader && level <= 2) {
+              closeReportHeader(parts, state);
+            }
+
+            parts.push('<p class="' + headingClass + '">' + content + '</p>');
+            continue;
+          }
+
+          if (/^INFORME MENSUAL/i.test(line)) {
+            flushList();
+            lastWasHr = false;
+            if (!state.inReportHeader) {
+              parts.push('<div class="msg-report-header">');
+              state.inReportHeader = true;
+              state.headerSubtitlePending = true;
+            }
+            parts.push('<p class="msg-h1">' + formatInlineMarkdown(line) + '</p>');
+            continue;
+          }
+
+          if (state.inReportHeader && /^Per[ií]odo:/i.test(line)) {
+            lastWasHr = false;
+            state.headerSubtitlePending = false;
             parts.push(
-              '<p class="' + headingClass + '">' + formatInlineMarkdown(headingMatch[2]) + '</p>'
+              '<p class="msg-report-period">' + formatInlineMarkdown(line) + '</p>'
             );
             continue;
           }
 
-          const listMatch = line.match(/^[-•*]\s+(.+)$/);
+          if (
+            state.inReportHeader &&
+            state.headerSubtitlePending &&
+            line !== '' &&
+            !/^\d+\./.test(line)
+          ) {
+            lastWasHr = false;
+            state.headerSubtitlePending = false;
+            parts.push('<p class="msg-h2">' + formatInlineMarkdown(line) + '</p>');
+            continue;
+          }
+
+          if (state.inReportHeader && line !== '' && !/^\d+\./.test(line) && !/^Per[ií]odo:/i.test(line)) {
+            closeReportHeader(parts, state);
+          }
+
+          const conclusionMatch = line.match(/^✅\s*(.+)$/);
+          if (conclusionMatch) {
+            flushList();
+            lastWasHr = false;
+            parts.push(
+              '<div class="msg-conclusion-ok">✅ ' + formatInlineMarkdown(conclusionMatch[1]) + '</div>'
+            );
+            continue;
+          }
+
+          const listMatch = line.match(/^[-•*✓]\s+(.+)$/);
           if (listMatch) {
             lastWasHr = false;
             listItems.push(listMatch[1]);
@@ -1473,10 +2327,18 @@
           }
 
           lastWasHr = false;
+
+          if (/^\\\* /.test(line) || (/^\*/.test(line) && /infer/i.test(line))) {
+            parts.push('<p class="msg-footnote">' + formatInlineMarkdown(line) + '</p>');
+            continue;
+          }
+
           parts.push('<p class="msg-p">' + formatInlineMarkdown(line) + '</p>');
         }
 
+        flushAllTables();
         flushList();
+        closeReportHeader(parts, state);
         return parts.join('');
       }
 
@@ -1507,11 +2369,15 @@
           row.appendChild(avatar);
         }
 
+        const isReport = type === 'bot' && isReportDocument(text);
+
         const bubbleWrap = document.createElement('div');
         bubbleWrap.className =
           (type === 'user'
             ? 'max-w-[min(100%,28rem)] sm:max-w-[60%] md:max-w-[50%] '
-            : 'max-w-[min(100%,48rem)] sm:max-w-[92%] md:max-w-[85%] lg:max-w-[78%] ') +
+            : isReport
+              ? 'max-w-[min(100%,56rem)] sm:max-w-[96%] md:max-w-[92%] lg:max-w-[88%] w-full '
+              : 'max-w-[min(100%,48rem)] sm:max-w-[92%] md:max-w-[85%] lg:max-w-[78%] ') +
           'flex flex-col ' +
           (type === 'user' ? 'items-end' : 'items-start');
 
@@ -1522,6 +2388,25 @@
           bubbleWrap.appendChild(label);
         }
 
+        if (type === 'bot') {
+          const actions = document.createElement('div');
+          actions.className = 'msg-actions';
+          const bubble = document.createElement('div');
+          bubble.className =
+            'rounded-2xl sm:rounded-[1.25rem] px-3.5 py-2.5 sm:px-4 sm:py-3 text-sm sm:text-[15px] leading-relaxed shadow-soft break-words ' +
+            (isReport
+              ? 'bot-bubble report-bubble text-slate-700 rounded-bl-md'
+              : 'bot-bubble bg-white text-slate-700 border border-slate-200/80 rounded-bl-md');
+          bubble.innerHTML = formatMessage(text);
+          actions.appendChild(createPdfDownloadButton(bubble, text));
+          bubbleWrap.appendChild(actions);
+          bubbleWrap.appendChild(bubble);
+          row.appendChild(bubbleWrap);
+          messagesEl.appendChild(row);
+          scrollToBottom();
+          return row;
+        }
+
         const bubble = document.createElement('div');
         bubble.className =
           'rounded-2xl sm:rounded-[1.25rem] px-3.5 py-2.5 sm:px-4 sm:py-3 text-sm sm:text-[15px] leading-relaxed shadow-soft break-words ' +
@@ -1529,7 +2414,9 @@
             ? 'bg-brand-600 text-white rounded-br-md'
             : type === 'error'
               ? 'bg-red-50 text-red-800 border border-red-100 rounded-bl-md'
-              : 'bg-white text-slate-700 border border-slate-200/80 rounded-bl-md');
+              : isReport
+                ? 'bot-bubble report-bubble text-slate-700 rounded-bl-md'
+                : 'bot-bubble bg-white text-slate-700 border border-slate-200/80 rounded-bl-md');
 
         bubble.innerHTML = formatMessage(text);
         bubbleWrap.appendChild(bubble);
@@ -1770,6 +2657,13 @@
         resetSessionId();
         appendMessage(welcomeMessage, 'bot');
         inputEl.focus();
+      };
+
+      window.__pdfTestHooks = {
+        appendMessage: appendMessage,
+        buildPdfExportNode: buildPdfExportNode,
+        downloadMessageAsPdf: downloadMessageAsPdf,
+        buildPdfPrintHtml: buildPdfPrintHtml,
       };
       }
 

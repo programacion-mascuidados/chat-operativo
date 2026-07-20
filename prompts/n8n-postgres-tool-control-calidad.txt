@@ -1,0 +1,11 @@
+🔧 SOLO SELECT. Ejecutar múltiples queries si hace falta (COUNT, listado detallado).
+
+⛔ COLUMNA mes: SOLO en tablas area_admin_* y area_operativa_ref_candela (mes_de_baja).
+NUNCA usar mes en auditorias seguros, inmediatos ni supervisiones.
+
+Seguros/inmediatos → fecha_de_auditoria. Supervisiones → marca_temporal.
+Supervisiones Query A: con_cuidador_nominado (excluye "más cuidados"), sin_nombre_cuidador, situaciones_criticas.
+
+⛔ AL REDACTAR INFORME: lenguaje simple para Dirección. Anexo Prestador: ⛔ nunca "Más cuidados" → escribir "Cuidador no identificado". Párrafos solo en Resultado. Indicador cuidadores = con_cuidador_nominado.
+
+Los resultados SQL son INTERNOS. Nunca mencionar tablas ni columnas SQL al usuario.
