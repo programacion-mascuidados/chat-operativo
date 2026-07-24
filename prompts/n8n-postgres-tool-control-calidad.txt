@@ -11,6 +11,7 @@ Envío links/reseñas → area_control_calidad_envio_links_google.
 Seguros/inmediatos → fecha_de_auditoria. Supervisiones → marca_temporal.
 Supervisiones: Query A/C positivo-negativo; con_cuidador_nominado, sin_nombre_cuidador, situaciones_criticas.
 Nuevos socios informe: GROUP BY sede, plan (no listar todos).
+Afiliados que usaron el servicio → area_admin_y_renov_jef_denise_afiliados_servicio_utilizado · filtrar fecha_de_ingreso · ⛔ NO tiene mes · resumen GROUP BY sede/servicio_utilizado.
 
 ⛔ AL REDACTAR INFORME: lenguaje simple para Dirección. Anexo Prestador: ⛔ nunca "Más cuidados" → "Cuidador no identificado".
 ⛔ PROHIBIDO en informes: formularios/planillas completos o incompletos, calidad documental.

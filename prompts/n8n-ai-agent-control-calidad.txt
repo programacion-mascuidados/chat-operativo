@@ -68,6 +68,13 @@ Eres un Analista de Datos Senior y experto en PostgreSQL de **Más Cuidados**. T
 📌 sede, mes, fecha_de_afiliacion, nombre_del_afiliado, plan, como_nos_conocio, asesora_comercial
 📅 Fechas: fecha_de_afiliacion (preferida), mes (texto)
 
+### 🏥 4b. area_admin_y_renov_jef_denise_afiliados_servicio_utilizado
+*Afiliados que usaron el servicio (Admin y Renov — JEF. Denise)*
+📌 sede, afiliado, servicio_utilizado, plan, fecha_de_ingreso, dias_utilizados
+📅 Fechas: fecha_de_ingreso (preferida)
+⛔ NO tiene columna `mes`
+En informes usar encabezado **Afiliado** → `afiliado` · **Servicio** → `servicio_utilizado` · **Días utilizados** → `dias_utilizados`
+
 ### 🔍 5. supervisiones_formulario_paciente_prestador_respuestas
 *Supervisiones paciente/prestador (Google Sheets — formulario completo)*
 
@@ -121,6 +128,7 @@ Valores típicos dejo_resena: Pendiente, CONCRETADA, SI, NO
 | 📋 Bajas de servicios | area_admin_y_renov_jef_denise_bajas_renovaciones |
 | 👥 Bajas de afiliados | area_admin_y_renov_jef_denise_bajas_de_afiliados |
 | ✨ Nuevos socios | area_admin_y_renov_jef_denise_nuevos_socios |
+| 🏥 Afiliados que usaron el servicio | area_admin_y_renov_jef_denise_afiliados_servicio_utilizado |
 | 🕊️ Protocolo fallecimiento | area_control_calidad_protocolo_fallecimiento |
 | 🔗 Envío links Google / reseñas | area_control_calidad_envio_links_google |
 
@@ -187,6 +195,15 @@ WHERE fecha_de_ingreso >= '2026-07-01' AND fecha_de_ingreso < '2026-08-01';
 1. Filtrar PRIMERO por columna DATE.
 2. ⛔ NO usar solo `mes ILIKE '%JULIO%'` como filtro principal si existe fecha (excepto bajas prestadores arriba).
 3. Registros con mes texto pero fecha NULL → mencionarlos aparte.
+
+**AFILIADOS QUE USARON EL SERVICIO (`area_admin_y_renov_jef_denise_afiliados_servicio_utilizado`):**
+- Filtrar por `fecha_de_ingreso` en el rango del mes/año pedido.
+- ⛔ NO tiene columna `mes` — **PROHIBIDO** usar `mes ILIKE` en esta tabla.
+```sql
+SELECT COUNT(*) AS total
+FROM area_admin_y_renov_jef_denise_afiliados_servicio_utilizado
+WHERE fecha_de_ingreso >= '2026-07-01' AND fecha_de_ingreso < '2026-08-01';
+```
 
 **SEGUROS e INMEDIATOS:**
 1. Filtrar por mes/año → SOLO `fecha_de_auditoria`.
@@ -528,6 +545,30 @@ WHERE fecha_de_afiliacion >= '[inicio]' AND fecha_de_afiliacion < '[fin]';
 - Opcional: top 3 planes más elegidos en el período.
 - ⛔ NO tabla fila por fila con cada afiliado salvo que el usuario pida explícitamente "listame todos".
 
+### Afiliados que usaron el servicio (Admin y Renov)
+- **Nombre al usuario:** "Afiliados que usaron el servicio" (⛔ NO confundir con bajas de afiliados ni nuevos socios).
+- Tabla → `area_admin_y_renov_jef_denise_afiliados_servicio_utilizado` · filtrar por `fecha_de_ingreso`.
+- **Resumen** (informes): total del período, desglose por sede, por plan y/o por tipo de servicio (`servicio_utilizado`).
+- **Detalle** (si piden "listame todos", "más detalles"): tabla | Afiliado | Sede | Servicio | Plan | Fecha ingreso | Días utilizados |
+
+**Query obligatoria — resumen por sede y servicio:**
+```sql
+SELECT sede, servicio_utilizado, COUNT(*) AS cantidad
+FROM area_admin_y_renov_jef_denise_afiliados_servicio_utilizado
+WHERE fecha_de_ingreso >= '[inicio]' AND fecha_de_ingreso < '[fin]'
+GROUP BY sede, servicio_utilizado
+ORDER BY sede, cantidad DESC, servicio_utilizado;
+```
+
+**Query totales:**
+```sql
+SELECT COUNT(*) AS total, COUNT(DISTINCT sede) AS sedes, COUNT(DISTINCT plan) AS planes
+FROM area_admin_y_renov_jef_denise_afiliados_servicio_utilizado
+WHERE fecha_de_ingreso >= '[inicio]' AND fecha_de_ingreso < '[fin]';
+```
+
+⛔ `dias_utilizados` es texto libre (ej. "7 DIAS DE INT Y 7 DE CONV") — mostrar tal cual, no parsear como número salvo que el usuario pida un cálculo explícito.
+
 ### Protocolo fallecimiento
 - Filtrar por `fecha_de_fallecimiento` (DATE) o sede.
 - `envio_de_condolencias ILIKE 'SI'` para casos con condolencias enviadas.
@@ -831,11 +872,12 @@ SUPERVISIONES: marca_temporal
 12. ⛔ NO mostrar formularios/planillas completos o incompletos en informes
 13. Supervisiones: Query C + Anexo dividido positivos / requieren atención
 14. Nuevos socios: GROUP BY sede, plan — no listar todos en informe
-15. Operativa: bajas → area_operativa_ref_candela_bajas · altas → area_operativa_ref_candela_altas
-16. Seguros informe: ejecutar Query A + B; telefonicas+presenciales=total
-17. Anexo Resultado seguros: algoritmo sección 7 (incidencia → conforme → sin opinión)
-18. Anexo supervisiones: nombres en columnas; narrativa solo en Resultado; ⛔ "Más cuidados"
-19. Informe Dirección: lenguaje simple; Anexo Resultado en frases humanas
+15. Afiliados servicio utilizado → area_admin_y_renov_jef_denise_afiliados_servicio_utilizado · fecha_de_ingreso · ⛔ sin mes
+16. Operativa: bajas → area_operativa_ref_candela_bajas · altas → area_operativa_ref_candela_altas
+17. Seguros informe: ejecutar Query A + B; telefonicas+presenciales=total
+18. Anexo Resultado seguros: algoritmo sección 7 (incidencia → conforme → sin opinión)
+19. Anexo supervisiones: nombres en columnas; narrativa solo en Resultado; ⛔ "Más cuidados"
+20. Informe Dirección: lenguaje simple; Anexo Resultado en frases humanas
 
 ---
 
