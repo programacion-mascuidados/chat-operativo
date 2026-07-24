@@ -785,6 +785,14 @@
       color: #64748b;
     }
 
+    .area-card-subtitle {
+      margin: 0.35rem 0 0;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
     .area-card-features {
       display: flex;
       flex-wrap: wrap;
@@ -855,6 +863,67 @@
 
     .area-card.calidad:hover .area-card-dots span {
       background: #5eead4;
+    }
+
+    .area-card.comercial .area-card-accent {
+      background: linear-gradient(90deg, #d97706, #f59e0b);
+    }
+
+    .area-card.comercial .area-card-icon {
+      background: #fffbeb;
+      color: #b45309;
+    }
+
+    .area-card.comercial .area-card-tag {
+      background: #fffbeb;
+      color: #b45309;
+    }
+
+    .area-card.operativa-rrhh .area-card-accent {
+      background: linear-gradient(90deg, #7c3aed, #8b5cf6);
+    }
+
+    .area-card.operativa-rrhh .area-card-icon {
+      background: #f5f3ff;
+      color: #6d28d9;
+    }
+
+    .area-card.operativa-rrhh .area-card-tag {
+      background: #f5f3ff;
+      color: #6d28d9;
+    }
+
+    .area-card.is-disabled {
+      opacity: 0.82;
+      cursor: not-allowed;
+      background: #f8fafc;
+    }
+
+    .area-card.is-disabled:hover {
+      transform: none;
+      border-color: #e2e8f0;
+      box-shadow: 0 10px 40px rgba(15, 23, 42, 0.07);
+    }
+
+    .area-card.is-disabled .area-card-arrow {
+      color: #94a3b8;
+    }
+
+    .area-card.is-disabled:hover .area-card-arrow svg {
+      transform: none;
+    }
+
+    .area-card-tag.is-unavailable {
+      background: #f1f5f9 !important;
+      color: #64748b !important;
+    }
+
+    .area-card-unavailable-note {
+      margin-top: 0.65rem;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      color: #64748b;
+      font-weight: 500;
     }
 
     .area-footer {
@@ -1262,10 +1331,10 @@
                   <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                 </svg>
               </div>
-              <span class="area-card-tag">Operativo</span>
+              <span class="area-card-tag">Coordinación</span>
             </div>
-            <h3>Servicios de prestadores</h3>
-            <p>Novedades operativas, reportes de servicios, reemplazos, altas y consultas de prestadores.</p>
+            <h3>Reporte diario - Coordinación</h3>
+            <p>Consultá novedades operativas del reporte diario por fecha, sede y unidad de negocio.</p>
             <div class="area-card-features">
               <span class="area-card-feature">Novedades</span>
               <span class="area-card-feature">Reportes</span>
@@ -1313,6 +1382,71 @@
             </div>
           </div>
         </button>
+
+        <div
+          class="area-card comercial is-disabled"
+          data-area="comercial"
+          role="button"
+          aria-disabled="true"
+          tabindex="-1"
+        >
+          <div class="area-card-accent" aria-hidden="true"></div>
+          <div class="area-card-body">
+            <div class="area-card-top">
+              <div class="area-card-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                  <path d="M3 3v18h18" />
+                  <path d="M7 16l4-4 4 4 5-6" />
+                </svg>
+              </div>
+              <span class="area-card-tag is-unavailable">Próximamente</span>
+            </div>
+            <h3>ÁREA COMERCIAL</h3>
+            <p>Indicadores e informes comerciales.</p>
+            <p class="area-card-unavailable-note">Módulo en preparación. No disponible por el momento.</p>
+            <div class="area-card-features">
+              <span class="area-card-feature">Indicadores</span>
+              <span class="area-card-feature">Informes</span>
+            </div>
+            <div class="area-card-footer">
+              <span class="area-card-arrow">No disponible</span>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="area-card operativa-rrhh is-disabled"
+          data-area="operativa_rrhh"
+          role="button"
+          aria-disabled="true"
+          tabindex="-1"
+        >
+          <div class="area-card-accent" aria-hidden="true"></div>
+          <div class="area-card-body">
+            <div class="area-card-top">
+              <div class="area-card-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M22 11v2a4 4 0 0 1-4 4h-1" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+              </div>
+              <span class="area-card-tag is-unavailable">Próximamente</span>
+            </div>
+            <h3>ÁREA OPERATIVA - COORD Y RRHH</h3>
+            <p>Coordinación operativa y recursos humanos.</p>
+            <p class="area-card-subtitle">Referente Caamaño Candela</p>
+            <p class="area-card-unavailable-note">Módulo en preparación. No disponible por el momento.</p>
+            <div class="area-card-features">
+              <span class="area-card-feature">Coordinación</span>
+              <span class="area-card-feature">RRHH</span>
+            </div>
+            <div class="area-card-footer">
+              <span class="area-card-arrow">No disponible</span>
+            </div>
+          </div>
+        </div>
       </div>
 
       <p class="area-footer">Más Cuidados · Seleccioná un módulo para continuar</p>
@@ -1462,20 +1596,38 @@
 
       const AREAS = {
         prestadores: {
-          area: 'Servicios de prestadores',
-          title: 'Más Cuidados - Servicios de prestadores',
-          subtitle: 'Consultá novedades y datos operativos en tiempo real',
-          label: 'Servicios de prestadores',
+          enabled: true,
+          area: 'Reporte diario - Coordinación',
+          title: 'Más Cuidados - Reporte diario - Coordinación',
+          subtitle: 'Consultá novedades del reporte diario de coordinación',
+          label: 'Reporte diario - Coordinación',
           welcome:
-            'Hola. ¿Sobre qué reporte o novedad operativa de servicios de prestadores necesitás información?',
+            'Hola. ¿Sobre qué día o reporte de coordinación necesitás información?',
         },
         calidad: {
+          enabled: true,
           area: 'Control de Calidad',
           title: 'Más Cuidados - Control de Calidad',
           subtitle: 'Consultá datos y reportes de control de calidad',
           label: 'Control de Calidad',
           welcome:
             'Hola. ¿Sobre qué tema de control de calidad de Más Cuidados necesitás información?',
+        },
+        comercial: {
+          enabled: false,
+          area: 'ÁREA COMERCIAL',
+          title: 'Más Cuidados - ÁREA COMERCIAL',
+          subtitle: 'Indicadores e informes',
+          label: 'ÁREA COMERCIAL',
+          welcome: '',
+        },
+        operativa_rrhh: {
+          enabled: false,
+          area: 'ÁREA OPERATIVA - COORD Y RRHH',
+          title: 'Más Cuidados - ÁREA OPERATIVA - COORD Y RRHH',
+          subtitle: 'Referente Caamaño Candela',
+          label: 'ÁREA OPERATIVA - COORD Y RRHH',
+          welcome: '',
         },
       };
 
@@ -1601,7 +1753,7 @@
 
       function selectArea(areaKey) {
         const config = getAreaConfig(areaKey);
-        if (!config) return;
+        if (!config || config.enabled === false) return;
 
         currentAreaKey = areaKey;
         setSelectedArea(areaKey);
@@ -1613,7 +1765,7 @@
 
       areaScreen.addEventListener('click', function (event) {
         const card = event.target.closest('[data-area]');
-        if (!card) return;
+        if (!card || card.classList.contains('is-disabled')) return;
         selectArea(card.getAttribute('data-area'));
       });
 
@@ -2569,6 +2721,7 @@
               sessionId: getSessionId(),
               area: areaConfig.area,
               categoria: areaConfig.area,
+              areaKey: currentAreaKey,
             }),
           });
 
@@ -2582,7 +2735,9 @@
 
           if (!rawText || !rawText.trim()) {
             appendMessage(
-              'El servidor respondió sin contenido. Revisá en n8n el nodo "Respond to Webhook" para que devuelva JSON con la propiedad "output".',
+              'El servidor respondió sin contenido. Si cambiaste el nombre del área, actualizá el Switch en n8n (regla con el valor exacto de "area" o usá areaKey: "' +
+                currentAreaKey +
+                '"). El nodo "Respond to Webhook" debe devolver JSON con { "output": "..." }.',
               'error'
             );
             return;
@@ -2669,7 +2824,7 @@
 
       if (isAuthenticated()) {
         const savedArea = getSelectedAreaKey();
-        if (savedArea && getAreaConfig(savedArea)) {
+        if (savedArea && getAreaConfig(savedArea) && getAreaConfig(savedArea).enabled !== false) {
           selectArea(savedArea);
         } else {
           showAreaMenu();

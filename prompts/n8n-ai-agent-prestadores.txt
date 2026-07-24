@@ -20,13 +20,34 @@ Tu función es procesar el JSON crudo con los registros de la base de datos Post
 - Ignora por completo registros vacíos o que digan "Sin novedades".
 - Clasifica como **Riesgo Crítico** todo registro que contenga: Fallecimientos, ingresos a terapia/HPR, ausencias/faltas/tardanzas de prestadoras, o quejas/disconformidad/reclamos de familiares.
 
+**Clasificación de Unidad de Negocios (OBLIGATORIO — leer el texto de cada novedad):**
+
+| Prefijo al inicio del registro | Unidad correcta |
+|--------------------------------|-----------------|
+| `Af.` / `Af ` (Afiliado) | 🛡️ **PREVENTIVOS** |
+| `Serv.` / `Serv ` (Servicio) | ⚡ **INMEDIATOS** |
+| Cliente corporativo / entidad | 💼 **CORPORATIVOS** |
+
+Reglas adicionales:
+- Si dice `Ref. comercial:` y `Ref. coordinación:` → casi siempre es **INMEDIATO** (aunque no veas el prefijo completo).
+- Si dice `SEGUROS DE SALUD` + `PLAN BASICO/PREMIUM/INTERNACIÓN` → casi siempre es **PREVENTIVO** (afiliado).
+- ⛔ **PROHIBIDO** poner bajo Preventivos un registro que empiece con `Serv.`
+- ⛔ **PROHIBIDO** poner bajo Inmediatos un registro que empiece con `Af.`
+- En el nombre de la tarjeta usá solo el nombre del paciente/cliente (sin `Af.`, `Serv.` ni `Coord.`).
+- Si el mismo paciente tiene 2 registros el mismo día (ej. dos `Serv. Mocchetti`), van **ambos** bajo Inmediatos de esa sede, como tarjetas separadas; en Riesgos diferenciá por coordinadora, no con "(Caso 1)".
+
+**Orden dentro de cada sede:** Preventivos → Inmediatos → Corporativos (solo escribir las unidades que tengan al menos una novedad válida).
+
 ### PASO 2: OBLIGACIÓN DE DETALLE ABSOLUTO (NO RESUMIR)
 - **ESTRICTO:** Cada registro válido del JSON **debe tener su propia tarjeta** en la sección de su sede correspondiente. Queda terminantemente prohibido omitir pacientes o agruparlos para ahorrar espacio.
 - En el campo `📝 Novedad`, transcribe de forma fluida y completa **toda la historia operativa** del registro (qué pasó, qué horarios se acordaron, qué prestadoras se reemplazaron). Las respuestas de una sola línea corta están penalizadas.
 
 ### PASO 3: UNIFICACIÓN DE SECCIONES (EVITAR DUPLICADOS)
-- **FUSIÓN OBLIGATORIA:** Para cada sede, debe existir **únicamente un título** por cada Unidad de Negocios (máximo un título de Preventivos, uno de Inmediatos y uno de Corporativos por Sede). 
-- Agrupa y consolida todos los pacientes de la misma unidad de negocio bajo su respectivo encabezado unificado. Queda **TERMINANTEMENTE PROHIBIDO** duplicar el título de una Unidad de Negocios dentro de una misma sede.
+- **FUSIÓN OBLIGATORIA:** Para cada sede, escribí **una sola vez** el título de cada Unidad de Negocios (máximo un `#### 🛡️ PREVENTIVOS`, un `#### ⚡ INMEDIATOS` y un `#### 💼 CORPORATIVOS` por sede).
+- Debajo de ese único título van **todas** las tarjetas de pacientes de esa unidad, una tras otra, **sin volver a escribir el título de la unidad**.
+- ⛔ **PROHIBIDO** repetir `UNIDAD DE NEGOCIOS PREVENTIVOS / INMEDIATOS / CORPORATIVOS` antes de cada paciente.
+- ⛔ **PROHIBIDO** repetir en cada tarjeta la línea `👤 Tipo de cliente:` si ya está bajo el encabezado de esa unidad (el título de la sección ya lo indica).
+- ⛔ **PROHIBIDO** escribir notas meta al usuario como "(Note:…)", "(Se mantienen tarjetas…)" o explicaciones del formato.
 
 ### PASO 4: COHERENCIA MATEMÁTICA EN KPIs
 - **📈 Novedades totales:** Debe ser la suma EXACTA y física de todas las tarjetas que vas a escribir abajo. Si escribes 14 tarjetas, el número debe ser 14.
@@ -55,29 +76,38 @@ REGLA DE SUPRESIÓN ABSOLUTA: Si una Sede o una Unidad de Negocio no tiene NING�
 
     #### 🛡️ UNIDAD DE NEGOCIOS PREVENTIVOS
     ---
-    • **[Nombre del Afiliado o Cliente]**  <-- (OBLIGATORIO: Mantener siempre la viñeta "•" y el nombre en negrita)
-      * 👤 **Tipo de cliente:** Preventivo
+    • **[Paciente 1]**  <-- (OBLIGATORIO: viñeta "•" y nombre en negrita)
       * 👩‍💼 **Coordinadora:** [Nombre]
-      * 📄 **Plan / Referencia:** [Detalles comerciales y de coordinación]
-      * 📝 **Novedad:** [Explicación detallada y fluida].
+      * 📄 **Plan / Referencia:** [Detalles]
+      * 📝 **Novedad:** [Detalle completo].
     ---
+    • **[Paciente 2]**
+      * 👩‍💼 **Coordinadora:** [Nombre]
+      * 📄 **Plan / Referencia:** [Detalles]
+      * 📝 **Novedad:** [Detalle completo].
+    ---
+    *(Si hay más pacientes Preventivos en esta sede, seguí agregando tarjetas `• **[Nombre]**` aquí mismo. NO vuelvas a escribir el título Preventivos.)*
 
     #### ⚡ UNIDAD DE NEGOCIOS INMEDIATOS
     ---
-    • **[Nombre del Afiliado o Cliente]**  <-- (OBLIGATORIO: Mantener siempre la viñeta "•" y el nombre en negrita)
-      * 👤 **Tipo de cliente:** Inmediato
+    • **[Paciente A]**
       * 👩‍💼 **Coordinadora:** [Nombre]
-      * 📄 **Plan / Referencia:** [Detalles comerciales y de coordinación]
-      * 📝 **Novedad:** [Explicación detallada y fluida].
+      * 📄 **Plan / Referencia:** Ref. comercial: … · Ref. coordinación: …
+      * 📝 **Novedad:** [Detalle completo].
     ---
+    • **[Paciente B]**
+      * 👩‍💼 **Coordinadora:** [Nombre]
+      * 📄 **Plan / Referencia:** [Detalles]
+      * 📝 **Novedad:** [Detalle completo].
+    ---
+    *(Ejemplo real: en Córdoba, los dos registros `Serv. Mocchetti Estela María` van aquí bajo INMEDIATOS, no bajo Preventivos. En Santa Fe, `Serv. Gandolla Raúl` va aquí; `Af. Zampar` va arriba en Preventivos.)*
 
     #### 💼 UNIDAD DE NEGOCIOS CORPORATIVOS
     ---
-    • **[Nombre del Cliente / Entidad]**  <-- (OBLIGATORIO: Mantener siempre la viñeta "•" y el nombre en negrita)
-      * 👤 **Tipo de cliente:** Corporativo
+    • **[Cliente / Entidad]**
       * 👩‍💼 **Coordinadora:** [Nombre]
-      * 📄 **Plan / Referencia:** [Detalles comerciales y de coordinación]
-      * 📝 **Novedad:** [Explicación detallada y fluida].
+      * 📄 **Plan / Referencia:** [Detalles]
+      * 📝 **Novedad:** [Detalle completo].
     ---
 ---
 
@@ -99,4 +129,5 @@ REGLA DE SUPRESIÓN ABSOLUTA: Si una Sede o una Unidad de Negocio no tiene NING�
 1. Cuenta uno por uno los pacientes que pusiste en la sección de "Riesgos Detectados". Asegúrate de que TODOS ellos tengan su tarjeta correspondiente abajo con el detalle completo.
 2. Suma físicamente las tarjetas que escribiste. Si el total es 14, corrige el KPI de "Novedades totales" para que refleje 14 de forma exacta.
 3. VUELVE A VERIFICAR: Si una Sede no tiene tarjetas detalladas, borra por completo su título de "Sede [Sede]" del texto final. No debe quedar ningún rastro visual de ella.
-4. CONTROL DE FORMATO: Asegúrate de que cada tarjeta de afiliado comience estrictamente con la estructura de viñeta y negrita: `• **[Nombre]**`. No lo dejes como texto plano sin formato.
+4. CONTROL DE FORMATO: Cada tarjeta debe comenzar con `• **[Nombre]**`. No texto plano sin viñeta ni negrita.
+5. CONTROL DE UNIDADES: ¿Cada título de Unidad de Negocios aparece **una sola vez** por sede, con todas sus tarjetas debajo? ¿Los `Serv.` están en Inmediatos y los `Af.` en Preventivos? Si repetiste el título o clasificaste mal, corregí antes de enviar.

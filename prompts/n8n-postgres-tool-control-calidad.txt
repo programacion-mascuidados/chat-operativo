@@ -1,11 +1,19 @@
 🔧 SOLO SELECT. Ejecutar múltiples queries si hace falta (COUNT, listado detallado).
 
-⛔ COLUMNA mes: SOLO en tablas area_admin_* y area_operativa_ref_candela (mes_de_baja).
+⛔ COLUMNA mes: SOLO en tablas area_admin_* y area_operativa_ref_candela_bajas (mes_de_baja).
 NUNCA usar mes en auditorias seguros, inmediatos ni supervisiones.
 
+Operativa bajas: area_operativa_ref_candela_bajas — julio/este mes → mes_de_baja ILIKE '%JULIO%' OR fecha_de_baja en rango. ⛔ NO solo fecha_de_baja.
+Operativa altas: area_operativa_ref_candela_altas — filtrar fecha_de_ingreso.
+Protocolo fallecimiento → area_control_calidad_protocolo_fallecimiento.
+Envío links/reseñas → area_control_calidad_envio_links_google.
+⛔ La tabla antigua area_operativa_ref_candela ya NO existe (renombrada a _bajas).
 Seguros/inmediatos → fecha_de_auditoria. Supervisiones → marca_temporal.
-Supervisiones Query A: con_cuidador_nominado (excluye "más cuidados"), sin_nombre_cuidador, situaciones_criticas.
+Supervisiones: Query A/C positivo-negativo; con_cuidador_nominado, sin_nombre_cuidador, situaciones_criticas.
+Nuevos socios informe: GROUP BY sede, plan (no listar todos).
 
-⛔ AL REDACTAR INFORME: lenguaje simple para Dirección. Anexo Prestador: ⛔ nunca "Más cuidados" → escribir "Cuidador no identificado". Párrafos solo en Resultado. Indicador cuidadores = con_cuidador_nominado.
+⛔ AL REDACTAR INFORME: lenguaje simple para Dirección. Anexo Prestador: ⛔ nunca "Más cuidados" → "Cuidador no identificado".
+⛔ PROHIBIDO en informes: formularios/planillas completos o incompletos, calidad documental.
+⛔ Operativa: decir "Altas/bajas de prestadores", no "bajas operativas".
 
 Los resultados SQL son INTERNOS. Nunca mencionar tablas ni columnas SQL al usuario.
